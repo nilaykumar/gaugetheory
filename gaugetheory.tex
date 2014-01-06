@@ -777,10 +777,10 @@ exterior derivatives and wedge products of vector-valued forms. Note that when n
 the contents of this section will be in the context of a principal $G$-bundle $P$ over $M$.
 
 \begin{defn}
-    Let $\omega$ be a $\fr g$-valued $p$-form on $\omega$ a manifold $M$ and $X_i$ be vector fields on $M$.
-    We define the \textbf{exterior derivative of} $\omega$ to be the $(p+1)$-form given in coordinates as
-    \[d\omega = (d\omega^i)e_i\]
-    where $\{e_i\}$ is a basis for $\fr g$, and $d$ is the usual exterior derivative.
+Let $\omega$ be a $\fr g$-valued $p$-form on $\omega$ a manifold $P$ and $X_i$ be vector fields on $P$.
+We define the \textbf{exterior derivative of} $\omega$ to be the $(p+1)$-form given in coordinates as
+\[d\omega = (d\omega^i)e_i\]
+where $\{e_i\}$ is a basis for $\fr g$, and $d$ is the usual exterior derivative.
 \end{defn}
 
 \begin{defn}
@@ -882,6 +882,51 @@ As the exterior derivative commutes with pullbacks by smooth maps, we have that
 
 
 \section{Local descriptions: gauge fields}
+\todo{cite Jose}
+So far we have been focusing on describing the total space of the bundle, and have not said much about the base manifold $M$. However, in physical applications we are interested in integrating over $M$ (``real'', physical space, such as the spacetime manifold $\R^4$) quantities which descend from the total space $P$. In fact, the so-called gauge fields used in quantum field theory are just pullbacks of the connection form to $M$. Therefore we take some time now to develop a local formalism on the base manifold; it's local because gauge fields are defined in terms of a cannonical section $s_{\alpha}$, which in turn depends on the local trivialization $\psi_{\alpha}$ we are working with. With this in mind, we make the following definition:
+
+\begin{defn}
+Consider a local trivialization $\psi_{\alpha}: \pi^{-1}(U_{\alpha}) \to U_{\alpha} \times G$ and the associated canonical section $\sigma_{\alpha} : U_{\alpha} \to \pi^{-1}(U_{\alpha})$. A \textbf{gauge field} is the following $\fr g$-valued 1-form on $U_{\alpha}$:
+\[      A_{\alpha} = s_{\alpha}^* \omega  \in \Omega^1(U_{\alpha}, \fr g)   \]
+\end{defn}
+
+Since the gauge field is local, it's natural to ask what the relation is between fields on different trivializations, $A_{\alpha}$ and $A_{\beta}$. To obtain this relation, we will use the following lemma, that gives a local description of the global form $\omega$.
+
+\begin{lem}
+The restriction of the connection form $\omega$ to a local trivialization $\pi^{-1}(U_{\alpha})$ agrees with the following 1-form:
+\[    \omega_{\alpha} = \Ad_{g_{\alpha}^{-1}} \circ \pi^* A_{\alpha} + g_{\alpha}^* \mu     \]
+$\mu$ is the Maurer-Cartan form, while $g_{\alpha}$ is the fiber component of the local trivialization: $\psi_{\alpha}(p) = (\pi(p), g_{\alpha}(p))$.
+\end{lem}
+
+\begin{proof}
+We prove this lemma in two parts. In the first, we show that $\omega$ and $\omega_{\alpha}$ agree on the image of $s_{\alpha}$, and in the second, we show that the forms transform the same way under the right action of $G$.
+\begin{enumerate}
+\item Let $m \in U_{\alpha}$ and $p = s_{\alpha}(m)$. We note that any vector $v \in T_pP$ can be decomposed into its horizontal and vertical parts:
+\[   v = (s_{\alpha})_* \pi_* (v) + \bar v  \]
+Then we apply $\omega_{\alpha}$ to $v$ split in this way, and use the fact that $g_{\alpha}$ evaluates to the identity on the image of $s_{\alpha}$. This means we can ignore the adjoint action of $g_{\alpha}^{-1}$ in the definition of $\omega_{\alpha}$, and we get:
+\begin{align*}
+\omega_{\alpha}(v) &= (\pi^* s_{\alpha}^* \omega)(v) + (g_{\alpha}^* \mu_e) (v) \\
+&= \omega((s_{\alpha})_* \pi_* v) + \mu_e((g_{\alpha})_* v) \\
+&= \omega((s_{\alpha})_* \pi_* v) + \mu_e((g_{\alpha})_* \bar v) \\
+&= \omega((s_{\alpha})_* \pi_* v) + \omega(\bar v) \\
+&= \omega((s_{\alpha})_* \pi_* v + \bar v) \\
+&= \omega(v)
+\end{align*}
+On the second line we used the equivariance of $\theta$, and on the fourth the fact that the connection form acts as the Maurer-Cartan on vertical vectors.
+\item Now we check the behavior of $\omega_{\alpha}$ under $R_g^*$:
+\begin{align*}
+R_g^*(\omega_{\alpha})_{pg} &= \Ad_{g_{\alpha}(pg)^{-1}} \circ R_g^* \pi^* s_{\alpha}^* \omega + R_{g}^* g_{\alpha}^* \mu \\
+&= \Ad_{(g_{\alpha}(p)g)^{-1}} \circ R_g^* \pi^* s_{\alpha}^* \omega +  g_{\alpha}^* R_{g}^* \mu \\
+&=  \Ad_{g^{-1}(g_{\alpha}(p))^{-1}} \circ  \pi^* s_{\alpha}^* \omega +  g_{\alpha}^*( \Ad_{g^{-1}}\circ \mu) \\
+&= \Ad_{g^{-1}} ( \Ad_{(g_{\alpha}(p))^{-1}} \circ  \pi^* s_{\alpha}^* \omega +  g_{\alpha}^*\mu  ) \\
+&= \Ad_{g^{-1}} \circ (\omega_{\alpha})_p
+\end{align*}
+Which shows that $\omega$ and $\omega_{\alpha}$ behave the same way under the right action of $G$. Note that, on the third line, we used the fact that $\pi \circ R_g = \pi$.
+\end{enumerate}
+
+\end{proof}
+
+
 \section{References}
 \section{Exercises}
 
