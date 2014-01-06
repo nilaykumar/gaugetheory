@@ -1,0 +1,342 @@
+\chapter{Principal Bundles}
+
+\section{Definition and examples}\todo{add more basic content}
+
+Let $G$ be a Lie group with identity $e$. A \textbf{right $G$-space} is a smooth manifold $X$ equipped with a smooth right action $X\times G\to X$. 
+A \textbf{left $G$-space} is defined similarly, though we will primarily deal with right $G$-spaces in these notes\todo{add footnote about conventions, see Naber}.
+We will typically denote the action of $G$ on a $G$-space by a ``$\cdot$'', even when there may
+be multiple $G$-spaces present, as the particular action should be clear from the context.
+If $X$ and $Y$ are two right $G$-spaces, a map $\phi:X\to Y$ is said to be \textbf{$G$-equivariant} (or equivalently, a map of right $G$-spaces) if the diagram
+\[\begin{tikzcd}
+        X\arrow[swap]{d}{g}\arrow{r}{\phi}&Y\arrow{d}{g}\\
+        X\arrow{r}{\phi}&Y
+\end{tikzcd}\]
+commutes, i.e. $\phi(x\cdot g)=\phi(x)\cdot g$ in the case of left $G$-spaces.
+
+\begin{defn}
+    Let $X$ and $P$ be right $G$-spaces and $\pi: P\to X$ be a smooth $G$-equivariant projection onto $X$.
+    We say that $(P,\pi)$ is a \textbf{principal $G$-bundle over the base space} $X$ if the following two conditions hold:
+    \begin{enumerate}[(i)]
+        \item $G$ acts trivially on $X$, i.e. $x\cdot g=x$ for all $x\in X$ and $g\in G$;
+        \item $X$ has an open cover $\{U_\alpha\}_{\alpha\in A}$ for which there exist $G$-equivariant diffeomorphisms $\phi_\alpha:\pi^{-1}(U_\alpha)\to U_\alpha\times G$ called \textbf{local trivializations} such that the diagram
+            \[\begin{tikzcd}[column sep=small]
+                \pi^{-1}(U_\alpha)\arrow[swap]{dr}{\pi}\arrow{rr}{\phi_\alpha}&&U\times G\arrow{dl}{\pi_\alpha}\\
+                &U_\alpha&
+            \end{tikzcd}\]
+            commutes, where $\pi_\alpha$ is projection onto the first component. Here, $U\times G$ has the structure of a right $G$-space such that $(u,g)\cdot h=(u,gh)$.
+    \end{enumerate}
+    We will also often denote the bundle $(P,\pi)$ as $G\to P\to X$.
+\end{defn}
+
+Note that the first condition above is equivalent to requiring the action of $G$ to preserve the fibers of $\pi$,
+\[\pi(p\cdot g)=\pi(p)\cdot g=\pi(p).\]
+In fact, we can say more, as the following lemma shows.
+
+\begin{lem}
+    Given an $x\in X$ and some $p\in\pi^{-1}(x)$ above $x$, the orbit of $p$ under the action of $G$ is the whole fiber:
+    \[\pi^{-1}(x)=\{p\cdot g: g\in G\}=p\cdot G.\]
+\end{lem}
+\begin{proof}
+    The inclusion $p\cdot G\subseteq \pi^{-1}(x)$ holds due to condition (i). To show the reverse inclusion, $\pi^{-1}(x)\subseteq p\cdot G$, it suffices to show that for any $q\in\pi^{-1}(x)$, there exists an $h\in G$ such that $p\cdot h=q$. Using condition (ii) we can take advantage of the equivariant local trivialization and work instead in local coordinates, $\phi(p)=(x, g_1)$ and $\phi(q)=(x,g_2)$, for some $g_1,g_2\in G$. Then $\phi(p)\cdot (g_1^{-1}g_2)=\phi(q)$, which implies (by injectivity of $\phi$) that $p\cdot h=q$ for $h=g_1^{-1}g_2$.
+\end{proof}
+
+Hence we may identify the fibers of $\pi$ with the group $G$.
+Informally, then, one can think of a principal bundle as a space that is locally just the product of a base manifold $X$ with a Lie group $G$.
+Globally, however, there may exist topological complications; consider, for example, the (infinite) M\"obius strip $M$.
+Locally $M$ is just $S^1\times \R$, but globally there is some kind of un-productlike twisting. Those familiar with vector bundles
+may have found the M\"obius strip a good example to keep in mind - in fact, as we shall show shortly, $M$ can also be
+treated as a principal bundle. 
+
+Before we move on to some examples of principal bundles, let us prove the following useful lemma.
+
+\begin{lem}
+    $G$ acts freely on $P$.
+\end{lem}
+\begin{proof}
+    Let us compute the stabilizer of some $p\in P$ where $\phi(p)=(x,g)$.
+    In coordinates, the requirement that $h\in\Stab_p$ is
+    $\phi(p\cdot h)=(x,gh)=(x,g)=\phi(p).$
+    This, of course, implies that $h=e$.
+\end{proof}
+
+To be more explicit, let us now consider some examples, a few of which will become important later on.\todo{be careful about smooth actions}\todo{add more examples}
+
+\begin{exmp}
+    The obvious example of a principal bundle is a bundle that is globally just a product. In other words, given
+    a Lie group $G$ and a smooth manifold $X$, we can construct the \textbf{trivial $G$-bundle over $X$} to be
+    $G\to X\times G\overset{\pi}{\to} X$ where $\pi$ is simply the projection onto the first factor and $X\times G$ is treated as
+    a $G$-space under the action $(x,g)\cdot h=(x,gh)$. 
+\end{exmp}
+
+\begin{exmp}
+    The reader familiar with projective spaces will recall that the sphere $S^n$ is a double cover of the real projective space $\RP^n$.
+    Thus we may consider the natural action of $O(1)=\Z_2=\left\{ 1,-1 \right\}$ (given the discrete topology) on $S^n$ identifying antipodal points,
+    i.e. for any $p\in S^n$,
+    \[p\cdot (\pm 1)=(x^1,\ldots, x^{n+1})\cdot (\pm 1)=\pm (x^1,\ldots,x^{n+1}).\]
+    We can thus construct the principal bundle $O(1)\to S^{n+1}\overset{\pi}{\to} \RP^{n+1}$. Let us check that the required properties are satisfied.
+    First note that $O(1)$ does indeed act trivially on the base space, as multiplication by a scalar preserves, by construction, points in $\RP^{n+1}$.
+    Next let us construct local trivializations, i.e. $O(1)$-equivariant diffeomorphisms $\phi_\alpha:\pi^{-1}(U_\alpha)\to U_\alpha\times G$ where
+    $U_\alpha$ for $\alpha\in\{1,\ldots, n+1\}$ are the usual charts on $\RP^n$ given by the non-vanishing of the $\alpha$th homogeneous coordinate.
+    If we now consider the graphical charts for the sphere given by 
+    \begin{align*}
+        V_\beta^+&=\left\{ (x^1,\ldots,x^{n+1})\in S^n\mid x^\beta>0 \right\}\\
+        V_\beta^-&=\left\{ (x^1,\ldots,x^{n+1})\in S^n\mid x^\beta<0 \right\},
+    \end{align*}
+    we see that
+    \[\pi^{-1}(U_\alpha)=V_\alpha^+\cup V_\alpha^-.\]
+    Hence we define the map $\phi_\alpha:\pi^{-1}(U_\alpha)\to U_\alpha\times O(1)$ as
+    \[\phi_\alpha\left( (x^1,\ldots,x^{n+1}) \right)=\left( [x^1:\ldots:x^{n+1}], \sgn x^{\alpha} \right).\]
+    Note first that $\phi_\alpha$ is indeed equivariant,
+    \[\phi_\alpha(x\cdot \pm 1)=\phi_\alpha(\pm x)=([x],\sgn \pm x^\alpha)=([x],\pm \sgn x^\alpha)=\phi_\alpha(x)\cdot (\pm 1),\]
+    and smooth as the first component is simply a smooth projection and the second component is constant and hence smooth in the disjoint $V_\beta^+$
+    and $V_\beta^-$ each. Moreover, $\phi_\alpha$ has an inverse given simply by treating a point in projective space as a point in the sphere
+    and multiplying by the given sign. This is certainly smooth - hence $\phi_\alpha$ is indeed a local trivializtion, and $S^n$ forms a principal
+    $O(1)$-bundle over $\RP^n$.
+
+    We leave it as an exercise at the end of the chapter to construct similar bundles over the complex and quaternionic projective spaces $\CP^n$ and $\HH\Proj^n$.
+\end{exmp}
+
+\begin{exmp}
+    Let $G$ be a Lie group, with $H$ a closed subgroup. Let us show that $G$ is a principal $H$-bundle over the coset space $G/H$.
+    Let us treat $G$ and $G/H$ as right $H$-spaces with the obvious right-multiplication. Then the action of $H$ on $G/H$ is trivial:
+    \[gH\cdot h = gH\]
+    for all $g\in G$ and $h\in H$. Showing local triviality is a little trickier. The interested reader may find a proof in \todo{Brocker-Dieck, thm 4.3}.
+\end{exmp}
+
+\begin{exmp}
+    Let $E\to X$ be a real vector bundle of rank $k$ over a smooth $n$-dimensional manifold $X$.
+    Define a \textbf{frame} at a point $x\in X$, to be an ordered basis $f=(f_1,\ldots, f_k)$ for the fiber $E_x$ above $x$. Denote the set of such frames by $F_x$.
+    Consider now the set $F(E)=\coprod_{x\in X} F_x$, known as the \textbf{frame bundle associated to $E$}. We claim that $F(E)$ is a principal
+    $\GL_k$-bundle over $X$, with the projection map given by $\pi(f)=x$ for $f\in F_x$.
+
+    Leaving aside issues concerning the smooth structure of $F(E)$ for a moment, let us instead begin by defining the action of $\GL_k$ on $F(E)$:
+    intuitively, the set of bases of $E_x$ comes equipped with a natural action of $\GL_k$.
+    Hence, for $f\in F(E), g\in\GL_k$, we define via the usual matrix multiplication,
+    \[(f\cdot g)_i=\sum_{j=1}^kg_{ij}f_j.\]
+    Note that this action takes
+    frames at $x$ to frames at $x$ since $\pi(f\cdot g)=\pi(f)$, thus rendering the action trivial on $X$ (and making $\pi$ equivariant). Next, in order to construct
+    local trivializations for $F(E)$, (again modulo smoothness) we must construct bijections $\phi_\alpha:\pi^{-1}(U_\alpha)\to U_\alpha\times\GL_k$,
+    where $\{U_\alpha\}$ is an open cover of $X$. Fixing a frame $e_x\in E_x$ at each $x\in U_\alpha$, we define, for $f_x\in F_x=\pi^{-1}(x)$
+    \[\phi_\alpha(f_x)=(x, g_x),\]
+    where $g_x\in\GL_k$ satisfies $f=e_x\cdot g_x$. In other words, we've fixed a `reference' or `identity' frame in each fiber, and are parameterizing
+    frames $f$ by the element in $\GL_k$ that takes the reference frame to $f$ (and $x$, of course). Thus defined, $\phi_\alpha$ commutes with the
+    necessary projection maps and is a bijection (this follows by linear algebra: given one frame at $x$, one can reach any other frame at $x$ uniquely. Indeed,
+    the action of $\GL_k$ on $F_x$ is free and transitive, though the lack of a preferred frame renders the bijection non-canonical).
+    Furthermore, $\phi_\alpha$ is equivariant with respect to the natural right $\GL_k$-action defined on $U_\alpha\times\GL_k$.
+
+    It now remains to equip $F(E)$ with a smooth structure such that $\pi$ is smooth, the action of $\GL_k$ is smooth, and $\phi_\alpha$ are
+    diffeomorphisms. To do this, we use as charts $U_\alpha\times V_i$ where $U_\alpha$ are the charts of $X$ and $V_i$ are the usual $k^2$
+    charts associated to $\GL_k$. We then have coordinates $\psi:F(E)\to\R^{n+k^2}$ given by $\psi(p)=(x_i,g_{ij})$, where $x=\pi(p)$ and $g$
+    is defined as in the trivialization above. Then $\pi$ is a smooth projection and the right action of $\GL_k$ is smooth. Finally, it is easily
+    verified that both $\phi_\alpha$ and $\phi_\alpha^{-1}$ are smooth; this concludes the proof that $F(E)$ is a principal $\GL_k$-bundle. In the
+    case of $E$ a Riemannian vector bundle (e.g. the tangent bundle of a Riemannian manifold) we may also consider the frame bundles
+    $OF(E)$ and $SOF(E)$ as the orthogonal and oriented orthogonal frame bundles, respectively.
+    
+    %To see why $F_x$ should have the structure of $\GL_k$, note first that a frame $f=(e_1,\ldots,e_k)\in F_x$
+    %can be viewed as a linear isomorphism $f_x:\R^k\to E_x$ given by $f(a^1,\ldots, a^k)=a^1e_1+\cdots a^ke_k$. Then $F_x$ is naturally
+    %equipped with a right-action of $\GL_k$ given by composition: $f\cdot g=f\circ g:\R^k\to E_x$. As is well-known from linear algebra,
+    %there is a unique linear transformation sending one basis to any other, and hence this right-action is both free and transitive.
+    %
+    %To see this, note first that $\GL_k\R$ acts transitively 
+    %and freely on the set of frames at $x$ (the us) on each $F_x$, giving $F_x$ the structure of $\GL_k$.
+
+    %%choosing a frame for $E_x$ is equivalent to choosing a linear isomorphism from $\R^k$ to $\pi^{-1}(x)$, i.e. choosing an
+    %element of $\GL(k)$ that takes the usual orthonormal basis of $\R^k$ to the chosen frame.
+    %Of course, $F_x$ is equipped with a natural right action by
+    %$\GL(k)$ (given by right-multiplication), which is free and transitive. In this sense, the set of frames $F_x$ is, when viewed as a Lie group, diffeomorphic to $\GL(k)$.
+    %\todo{finish frame bundles, see DuPont}
+\end{exmp}
+
+Now that we have worked through a few concrete examples of principal bundles, it should be clear that non-trivial bundles are precisely that: non-trivial.
+With this in mind, one might ask exactly how a
+given bundle fails to be trivial. This can be done via \textbf{transition functions}, in analogy to those used in defining smooth manifolds.
+In particular, we investigate how the local coordinates of a point in a principal bundle depend on the choice of local trivialization (assuming, of
+course, that the point is in a region of overlap $U_\alpha\cap U_\beta$).
+
+\begin{defn}
+    Let $P$ be a principal $G$-bundle over $X$ with local trivializations $\Psi_\alpha$ defined over an open cover $X=\{U_\alpha\}$.
+    Fix $\alpha,\beta$ such that $U_\alpha\cap U_\beta$ is non-empty. 
+    On the overlap, consider
+    \[\Psi_\beta\circ\Psi_\alpha^{-1}:(U_\alpha\cap U_\beta)\times G\to (U_\alpha\cap U_\beta)\times G,\]
+    which takes, say,
+    \[(\Psi_\beta\circ\Psi_\alpha^{-1})(x,g)=(x,h)\]
+    for some $x\in X$ and $g,h\in G$. As $\Psi_\beta\circ\Psi_\alpha$ is a diffeomorphism, $h$ must depend smoothly on $g$,
+    and hence we may write
+    \[(\Psi_\beta\circ\Psi_\alpha^{-1})(x,g)=(x,g_{\beta\alpha}(x)h),\]
+    where $g_{\beta\alpha}$ is a smooth map $U_\alpha\cap U_\beta\to G$ called the \textbf{transition function} $g_{\beta\alpha}$. 
+    It should be clear that these transition functions satisfy the so-called \textbf{cocycle condition}:
+    \[g_{\alpha\beta}(x)\cdot g_{\beta\gamma}(x)=g_{\alpha\gamma}(x),\]
+    for all $\alpha,\beta,\gamma$, with $x\in U_\alpha\cap U_\beta\cap U_\gamma$.
+\end{defn}
+
+Though perhaps not evident at first, these transition functions (defined over some open cover of the base manifold) hold enough
+information to recreate the principal bundle in its entirety. Intuitively, this is because the bundle can be thought of
+as a set of local products $U_\alpha\times G$ that is glued together in a non-trivial way via the transition functions in order to
+form the global structure of the bundle. We leave this as an exercise that the reader is urged to carry out (see \hyperref[exc:bundleconst]{Exercise \ref*{exc:bundleconst}}).
+\todo{maybe do this out}
+
+\section{Morphisms and sections}\todo{expand on this section}
+
+We may define morphisms between princpal $G$-bundles, thus defining the category of principal $G$-bundles.
+\begin{defn}
+    Let $G\overset{\pi_1}{\to}P_1\to X_1$ and $G\overset{\pi_2}{\to}P_2\to X_2$ be two principal $G$-bundles. We define a \textbf{bundle
+    map} between $P_1$ and $P_2$ to be a smooth $G$-equivariant map $\Phi:P_1\to P_2$:
+    \[\Phi(p\cdot g)=\Phi(p)\cdot g,\]
+    for all $p\in P_1, g\in G$, with the group action on both $P_1,P_2$ denoted by `$\cdot$'. Note that bundle maps preserve fibers.
+\end{defn}
+
+We will be concerned primarily with maps between bundles with the same base space. This is quite a special case, as the following theorem shows.
+\begin{thm}
+    A bundle map $f$ between two principal $G$-bundles $P_1$ and $P_2$ over the same base $X$ is an isomorphism.
+\end{thm}
+\begin{proof}
+    Let us first suppose that $P_1,P_2$ are both trivial, i.e. $P_1=P_2=X\times G$. Then, since $f$ must preserve fibers, we see that
+    \[f(x,g)=(x,\sigma(x)g)\]
+    for some function $\sigma:X\to G$.
+    \todo{finish}
+\end{proof}
+Indeed, this result suggests how strong the condition of being a principal bundle is.
+
+
+% Bundle maps
+
+Just as with vector bundle, we can construct ``sections'' of a principal bundle, i.e. globally twisted functions on our base manifold.
+
+\begin{defn}
+    Let $G\to P\overset{\pi}{\to} X$ be a principal $G$-bundle and $U$ be an open neighborhood of $X$. A \textbf{local section} (sometimes \textbf{cross-section}) of $\pi$ is a continuous map $\sigma: U\to P$ such that $\pi(\sigma(x))$. If $U=X$, we say that $\sigma$ is a \textbf{global section}.
+\end{defn}
+
+\begin{exmp}
+    Given a local trivialization $\Psi:\pi^{-1}(U)\to U\times G$, we can define a local section $\sigma:U\to P$ as $\sigma(x)=\Psi^{-1}(x,e)$. In words, we simply take the identity section in our local trivialization (that assigns to each point $x$ on the manifold the identity element in the copy of $G$ above $x$) and then pull it back onto the bundle. As the section is continuous in the local trivialization and because $\Psi$ is continuous and takes fiber to fiber, we see that $\sigma$ is indeed a local section. We will refer to this section as the \textbf{canonical section} associated to the trivialization $\Psi$.
+\end{exmp}
+
+\begin{thm}
+    A principal bundle $G\to P\overset{\pi}{\to} X$ is trivial iff it has a global section.
+\end{thm}
+\begin{proof}
+    Let $\sigma:X\to P$ be a global section. Consider now the trivial bundle $G\to X\times G\overset{\rho}{\to}X$; it suffices to find a bundle map $\Theta: X\times G\to P$ making the diagram 
+    \begin{equation*}
+        \begin{tikzcd}
+            X\times G\arrow{rr}{\Theta}\arrow[swap]{rd}{\rho}&&P\arrow[bend left]{ld}{\pi}\\
+            &X\arrow[bend left]{ru}{\sigma}&
+        \end{tikzcd}
+    \end{equation*}
+    commute. Define the map $\Theta:X\times G\to P$ by
+    \[\Theta(x,g)=\sigma(x)\cdot g.\]
+    This map clearly takes fiber to fiber and is $G$-equivariant, as
+    \[\Theta(x,gh)=\sigma(x)\cdot (gh)=(\sigma(x)\cdot g)\cdot g.\]
+    Hence $\Theta$ defines a bundle equivalence between $X\times G$ and $P$, and we are done. Intuitively, one thinks of the given global
+    section $\sigma$ as a (non-canonical) choice of a reference ``identity'' section.
+
+    Conversely, suppose $P\cong X\times G$. We can easily construct the global identity section $\sigma: X\to X\times G$ given by $\sigma(x)=(x,e)$.
+\end{proof}
+
+\section{Pullback bundles}
+
+\section{Associated bundles}
+
+Throughout this section, we fix a principal bundle $G\to P\xrightarrow{\pi}X$, as well as a 
+left $G$-space $F$. \todo{motivation?}\todo{cite Naber}
+
+\begin{defn}
+Consider the product manifold $P\times F$ as a right $G$-space, with a joint action defined as follows:
+\[(p,v)\cdot g\equiv(p\cdot g, \rho(g^{-1})\cdot y),\]
+for $p\in P,y\in V$, and $g\in G$. We define the \textbf{fiber bundle associated to $P$ with fiber $F$} to be the orbit space
+\[P\times_G F\equiv (P\times F)/G,\]
+i.e. the quotient of the product $P\times F$ by the action defined above. The following lemma
+justifies the name.
+\end{defn}
+
+\begin{lem}
+    The fiber bundle associated to $P$ as above forms a smooth, locally trivial bundle with base space $X$ and fiber $F$
+    written as $F\to P\times_GF\xrightarrow{\mu}X$. This structure is unique\todo{why?}.
+\end{lem}
+\begin{proof}
+    Concretely, we may write the points of the quotient $P\times_G F$ as equivalence classes $[p,y]$ under the relation
+    \[[p,y]=[p\cdot g,g^{-1}\cdot y].\]
+    If we denote by $q:P\times F\to P\times_G F$ the quotient map given by
+    \[q(p,y)=[p,y],\]
+    we can give $P\times_G F$ the induced quotient topology. Furthermore, we can define $\mu:P\times_G F\to X$ by
+    \[\mu([p,y])=[\pi(p)],\]
+    which is well-defined: $\mu([p\cdot g,g^{-1}\cdot y])=\pi(p\cdot g)=\pi(p)$. Finally, defining
+    $\pi_P:P\times F\to P$ to be the obvious projection, we find that the diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            P\times F\arrow{r}{q}\arrow{d}{\pi_P}&P\times_\rho F\arrow{d}{\mu}\\
+            P\arrow{r}{\pi}&X
+        \end{tikzcd}
+    \end{equation*}
+    commutes, implying that $\mu$ is in fact a continuous map (characteristic property of quotients).
+    
+    Let us now construct the necessary local trivializations for $P\times_G F$.
+    Fix an open set $U$ in $X$. Associated to $U$ we have a local trivialization of $P$
+    given by $\Psi:\pi^{-1}(U)\to U\times G$:
+    \[\Psi(p)=(\pi(p),\psi(p)),\]
+    where $\psi(p\cdot g)=\psi(p)g$ is the projection onto the group component for all $p\in\pi^{-1}(U)$ and $g\in G$.
+    If we denote by $s:U\to\pi^{-1}(U)$ the canonical section $s(x)=\Psi^{-1}(x,e)$, we can construct a map
+    $\tilde\Phi:U\times F\to\mu^{-1}(U)$ by
+    \[\tilde\Phi(x,y)=[s(x),y].\]
+    For $\tilde\Phi$ to be a local trivialization it must first be a homeomorphism. It is clearly continuous - it
+    suffices to show that it is bijective with continuous inverse.
+    Note first that for any $x\in X$ with $p\in\pi^{-1}(x)$,
+    the preimage $\pi_P^{-1}(p)$ is sent by $q$ to elements of the form $[p,y]$ for some $y\in F$ and hence
+    $\mu^{-1}(x)=\left\{ [p,y]\mid y\in F \right\}$. 
+    Thus we can write
+    \begin{align*}
+        \mu^{-1}(U)&=\bigcup_{x\in U}\mu^{-1}(x)\\
+        &=\bigcup_{x\in U}\left\{ [p,y]\mid \pi(p)=x,y\in F \right\}\\
+        &=q(\pi^{-1}(U)\times F).
+    \end{align*}
+    We first show that $\tilde\Phi$ is surjective. Fix $[p,y]\in \mu^{-1}(U)$ for $p\in P, y\in F$
+    and let $\pi(p)=x=\pi(s(x))$. As there exists some $g\in G$ for which $p=s(x)\cdot g$ it follows that
+    \[\tilde\Phi(x,g\cdot y)=[s(x),g\cdot y]=[s(x)\cdot g,(g^{-1}g)\cdot y]=[p,y].\]
+    Next, we show injectivity. Suppose $\tilde\Phi(x,y)=\tilde\Phi(x',y')$. Then, by definition of $\tilde\Phi$,
+    we must have that $[s(x),y]=[s(x'),y']$, and in particular, that $\pi(s(x))=\pi(s(x'))\implies x=x'$.
+    Consequently, $[s(x),y]=[s(x),y']$, i.e. there exists some $g\in G$ such that $s(x)\cdot g=s(x)$
+    and $y'=g^{-1}\cdot y$. The action of $G$ on a fiber of $P$ is free, and hence $g=e$, implying that
+    $y=y'$. Thus $\tilde\Phi$ is bijective with inverse is given by
+    \[\tilde\Psi([p,y])=(\pi(p), g\cdot y),\]
+    where $p=s(\pi(p))\cdot g$ (check this!). Using the characteristic property of quotient maps, $\tilde\Psi$
+    is continuous because the map $\tilde\Psi\circ q:q^{-1}(\mu^{-1}(U))=\pi^{-1}(U)\times F\to U\times F$ given
+    by $(p,y)\to(\pi(p),g\cdot y)$ is continuous.
+
+    Note that $\mu(\tilde\Phi(x,y))=\mu([s(x),y])=\pi(s(x))=x$ and hence $\tilde\Phi$ is (the inverse of) a local trivialization
+    for the bundle $F\to P\times_GF\xrightarrow{\mu}X$ (we leave it as an exercise to show that $P\times_GF$
+    is Hausdorff\todo{exercise: Naber 1.3.23}). It now suffices to construct a differentiable structure on $P\times_GF$
+    in respect to which $\mu$ is smooth and the maps $\tilde\Psi_\alpha:\mu^{-1}(U_\alpha)\to U_\alpha\times F$
+    are diffeomorphisms for an open cover $X=\left\{ U_\alpha \right\}$. Consider first two local trivializations
+    $\Psi_\alpha,\Psi_\beta$ (with $U_\alpha\cap U_\beta$ non-empty) for $P$ with let $s_\alpha,s_\beta$ the
+    corresponding canonical local sections and $g_{\beta\alpha}:U_\alpha\cap U_\beta\to G$ the transition function.
+    By the above procedure, we obtain the homeomorphisms $\tilde\Psi_\alpha:\mu^{-1}(U_\alpha)\to U_\alpha\times F$
+    and $\tilde\Psi_\beta:\mu^{-1}(U_\beta)\to U_\beta\times F$. Consider now the map
+    \[\tilde\Psi_\beta\circ\tilde\Psi_\alpha^{-1}:(U_\alpha\cap U_\beta)\times F\to(U_\alpha\cap U_\beta)\times F,\]
+    which, for $(x,y)\in(U_\alpha\cap U_\beta)\times F$, takes
+    \begin{align*}
+        \tilde\Psi_\beta\circ\tilde\Psi_\alpha^{-1}(x,y)&=\tilde\Psi_\beta\left( \tilde\Phi_\alpha(x,y) \right)\\
+        &=\tilde\Psi_\beta([s_\alpha(x),y])=\tilde\Psi_\beta([s_\beta(x)\cdot g_{\beta\alpha}(x),y])\\
+        &=\tilde\Psi_\beta([s_\beta(x)\cdot g_{\beta\alpha}(x),g_{\beta\alpha}^{-1}(x)\cdot(g_{\beta\alpha}(x)\cdot y)])\\
+        &=\tilde\Psi_\beta([s_\beta(x),g_{\beta\alpha}(x)\cdot y])\\
+        &=(x,g_{\beta\alpha}(x),y).
+    \end{align*}
+    This computation shows that $\tilde\Psi_\beta\circ\tilde\Psi_\alpha^{-1}$ is in fact a diffeomorphism, as it
+    is smooth and clearly has a smooth inverse.
+    %Note additionally that since $\left\{ U_\alpha \right\}$ is an open
+    %cover for $X$, $\left\{ \mu^{-1}(U_\alpha) \right\}$ is an open cover for $P\times_GF$. We can now define a smooth
+    %structure on $P\times_GF$ by taking $(\mu^{-1}(U_\alpha),\tilde\Psi_\alpha)$ as the charts (which are smoothly
+    %compatible by the above calculation).
+    \todo{finish; see Lee lem 10.6}
+\end{proof}
+
+\section{References}
+\section{Exercises}
+
+\begin{exc}
+    \label{exc:bundleconst}
+    Let $X$ be a smooth manifold and let $\left\{ U_\alpha \right\}$ be an open cover of $X$. Suppose for each
+    $\alpha,\beta$ we have smooth smooth transition functions $g_{\alpha\beta}:U_\alpha\cap U\beta\to G$ that
+    satisfy the cocycle condition. Show that there is a smooth principal $G$-bundle $P\xrightarrow{\pi} X$ with smooth local
+    trivializations $\Psi_\alpha:\pi^{-1}(U_\alpha)\to U_\alpha\times G$ whose transition functions are the given maps
+    $g_{\alpha\beta}$. (Hint: show that the transition functions give an equivalence relation on the disjoint union
+    $\coprod U_\alpha\times G$ and that quotienting by this relation yields a principal bundle.)
+\end{exc}
+
