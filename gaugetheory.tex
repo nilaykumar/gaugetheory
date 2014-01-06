@@ -15,6 +15,12 @@
     citecolor = gray
 }
 
+\usepackage[style=alphabetic, backend=bibtex]{biblatex}
+\addbibresource{references.bib}
+\DefineBibliographyStrings{english}{
+    bibliography = {References},
+}
+
 \newcommand{\nm}[1]{\;\textnormal{#1}\;}
 \newcommand{\ra}[0]{\rightarrow}
 \newcommand{\fa}[0]{\;\forall}
@@ -70,7 +76,6 @@
 
 \title{Notes on Gauge Theory}
 \author{Matei Ionita and Nilay Kumar}
-\date{Fall 2013}
 
 \begin{document}
 
@@ -84,13 +89,15 @@
 
 \newpage
 
-\include{introduction}
+\include{tex/introduction}
 
-\include{bundles}
+\include{tex/bundles}
 
-\include{connections}
+\include{tex/connections}
 
-\include{yangmills}
+\include{tex/yangmills}
+
+\printbibliography[heading=bibintoc]
 
 \end{document}
 
